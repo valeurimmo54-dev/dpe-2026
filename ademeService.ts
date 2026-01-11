@@ -1,10 +1,10 @@
-import { AdemeApiResponse, DpeResult } from '../types';
+
+// Import direct car types.ts est au même niveau
+import { AdemeApiResponse, DpeResult } from './types';
 
 const BASE_API_URL = "https://data.ademe.fr/data-fair/api/v1/datasets";
 
 export const fetchDpeByCommune = async (commune: string, size: number = 2000, datasetId: string = "dpe03existant"): Promise<AdemeApiResponse> => {
-  
-  // Tri par date la plus récente systématiquement
   const sortField = "-date_etablissement_dpe";
   let queryFilter = ""; 
 
@@ -82,7 +82,6 @@ export const fetchAllCommunes = async (
 
   for (let i = 0; i < total; i++) {
     try {
-      // Attente pour ne pas saturer l'API
       await new Promise(r => setTimeout(r, 150)); 
       const res = await fetchDpeByCommune(communes[i], 1000, datasetId);
       allResults.push(...res.results);
@@ -103,7 +102,7 @@ export const downloadAsCsv = (data: DpeResult[], filename: string) => {
   const headers = ["ID_DPE", "Date_Etablissement", "Commune", "Code_Postal", "Adresse", "Etiquette_DPE", "Etiquette_GES", "Consommation_kWh_m2", "GES_kg_m2", "Surface_m2", "Annee_Construction", "Estimation_Cout_EUR"];
   
   const csvRows = [
-    headers.join(";"), // Séparateur point-virgule pour Excel FR
+    headers.join(";"),
     ...data.map(r => [
       r.n_dpe, 
       r.date_etablissement_dpe, 
@@ -123,7 +122,6 @@ export const downloadAsCsv = (data: DpeResult[], filename: string) => {
   const csvContent = csvRows.join("\r\n");
   const blob = new Blob(["\ufeff" + csvContent], { type: 'text/csv;charset=utf-8;' });
   
-  // Utilisation d'une méthode de téléchargement forcée
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
@@ -132,9 +130,9 @@ export const downloadAsCsv = (data: DpeResult[], filename: string) => {
   document.body.appendChild(link);
   link.click();
   
-  // Nettoyage immédiat
   setTimeout(() => {
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
   }, 100);
 };
+    
