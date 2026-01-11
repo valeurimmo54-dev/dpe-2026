@@ -1,3 +1,4 @@
+
 import React, { useMemo } from 'react';
 import { 
   BarChart, 
@@ -6,24 +7,24 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  Legend, 
   ResponsiveContainer,
   Cell
 } from 'recharts';
-import { DpeResult } from '../types';
+// Import direct car types.ts est au même niveau
+import { DpeResult } from './types';
 
 interface DpeChartsProps {
   data: DpeResult[];
 }
 
 const COLORS = {
-  'A': '#22c55e', // Green 500
-  'B': '#84cc16', // Lime 500
-  'C': '#eab308', // Yellow 500
-  'D': '#f97316', // Orange 500
-  'E': '#ef4444', // Red 500
-  'F': '#b91c1c', // Red 700
-  'G': '#7f1d1d', // Red 900
+  'A': '#22c55e',
+  'B': '#84cc16',
+  'C': '#eab308',
+  'D': '#f97316',
+  'E': '#ef4444',
+  'F': '#b91c1c',
+  'G': '#7f1d1d',
 };
 
 export const DpeCharts: React.FC<DpeChartsProps> = ({ data }) => {
@@ -70,3 +71,4 @@ export const DpeCharts: React.FC<DpeChartsProps> = ({ data }) => {
     </div>
   );
 };
+    
