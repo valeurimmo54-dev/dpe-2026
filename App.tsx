@@ -1,8 +1,11 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { COMMUNES_40, DATASETS } from './constants';
-import { fetchDpeByCommune, fetchAllCommunes, downloadAsCsv } from './services/ademeService';
+// On retire "./services/" car le fichier est à la racine sur votre GitHub
+import { fetchDpeByCommune, fetchAllCommunes, downloadAsCsv } from './ademeService';
 import { DpeResult, FetchStatus } from './types';
-import { DpeCharts } from './components/DpeCharts';
+// On retire "./components/" car le fichier est à la racine sur votre GitHub
+import { DpeCharts } from './DpeCharts';
 import { 
   Download, 
   Loader2, 
@@ -26,7 +29,6 @@ const COLORS: Record<string, string> = {
   'G': 'bg-red-900',
 };
 
-// Mise à jour de l'année de départ à 2026
 const YEARS = ["Toutes", ...Array.from({ length: 16 }, (_, i) => (2026 - i).toString())];
 
 const App: React.FC = () => {
@@ -238,3 +240,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+    
